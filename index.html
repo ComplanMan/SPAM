@@ -1,0 +1,87 @@
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #ffebee;
+            font-family: 'Pangolin', cursive;
+            overflow: hidden;
+            text-align: center;
+        }
+        h1 { color: #d32f2f; font-size: 3rem; font-family: 'Love Light', cursive; }
+        .photo-container img { 
+            width: 280px; 
+            height: 280px; 
+            object-fit: cover; 
+            border-radius: 50%; 
+            border: 5px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px; 
+        }
+        .buttons { display: flex; gap: 20px; align-items: center; justify-content: center; margin-top: 20px;}
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        #yesBtn { background-color: #4caf50; color: white; }
+        #noBtn { background-color: #f44336; color: white; position: absolute; }
+    </style>
+</head>
+<body>
+
+    <!-- 3. Background Song -->
+    <!-- Note: Chrome requires a user click before music plays, so it will start when she clicks "Yes" -->
+    <audio id="bgMusic" loop>
+        <source src="YOUR_SONG_FILE.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="main-content">
+        <div class="photo-container">
+            <!-- 2. Your Photo -->
+            <img id="display-photo" src="YOUR_PHOTO_FILE.jpg" alt="Our Memory">
+        </div>
+        
+        <!-- 1. Her Name -->
+        <h1 id="question">Hey Hey Hey Lover, will you be my Valentine? ❤️</h1>
+        
+        <div class="buttons">
+            <button id="yesBtn" onclick="celebrate()">Yes</button>
+            <button id="noBtn" onmouseover="moveButton()">No</button>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const question = document.getElementById('question');
+        const music = document.getElementById('bgMusic');
+
+        let yesSize = 1.2;
+
+        function moveButton() {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+            yesSize += 0.3;
+            yesBtn.style.transform = `scale(${yesSize})`;
+        }
+
+        function celebrate() {
+            question.innerHTML = "Yay! Knew you couldn't say no! 🥰";
+            noBtn.style.display = "none";
+            yesBtn.style.display = "none";
+            
+            // Start the music on interaction
+            music.play();
+        }
+    </script>
+</body>
+</html>
